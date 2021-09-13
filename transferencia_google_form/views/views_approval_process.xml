@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- ########## VIEWS - APROBACION ##########-->
+    <record id="aprobacion_search" model="ir.ui.view">
+        <field name="name">transferencia.cargo.anexo.search</field>
+        <field name="model">transferencia.cargo.anexo</field>
+        <field name="arch" type="xml">
+            <search string="String">
+                <field name="categoria_id"/>
+                <field name="institucion_id"/>
+                <field name="tipo_anexo"/>
+                <field name="state"/>
+                <separator/>
+                <filter name="pendiente" string="Pendientes" domain="[('state','=','pendiente')]"/>
+                <separator/>
+                <filter name="group_by_institucion_id" string="Institucion" context="{'group_by' : 'institucion_id'}"/>
+            </search>
+        </field>
+    </record>
+    <record model='ir.ui.view' id='aprobacion_tree'>
+        <field name='name'>transferencia.cargo.anexo.tree</field>
+        <field name='model'>transferencia.cargo.anexo</field>
+        <field name='arch' type='xml'>
+            <tree string='Instituciones'>
+                <field name="categoria_id"/>
+                <field name="institucion_id"/>
+                <field name="tipo_anexo"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="aprobacion_form">
+        <field name="name">transferencia.cargo.anexo.form</field>
+        <field name="model">transferencia.cargo.anexo</field>
+        <field name="arch" type="xml">
+            <form string="Institucion">
+                <header>
+                    <button name="action_cumple" type="object" states="pendiente" string="Cumple"/>
+                    <button name="action_no_cumple" type="object" states="pendiente" string="No cumple"/>
+                    <button name="action_no_aplica" type="object" states="pendiente" string="No aplica"/>
+                    <field name="state" widget="statusbar" />
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="categoria_id" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="institucion_id" readonly="1"/>
+                        </group>
+                    </group>
+                    <div class="oe_title">
+                        <label for="tipo_anexo" class="oe_edit_only"/>
+                        <h2><field name="tipo_anexo" readonly="1"/></h2>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="binary_adjunto" widget="binary"  filename="adjunto_filename"
+                                attrs="{'invisible': [('tipo_anexo','in',['03'])]}" readonly="1"/>
+                            <field name="adjunto_filename" invisible="1"/>
+                        </group>
+                        <group>
+                        </group>
+                    </group>
+                    <separator string="1. Resumen ejecutivo." colspan="4"
+                         attrs="{'invisible': [('tipo_anexo','!=','02')]}"/>
+                    <div>
+                        <field name="resumen_ejecutivo" attrs="{'invisible': [('tipo_anexo','!=','02')]}" widget="html" readonly="1"/>
+                    </div>
+                    <separator string="2. Organización de la entidad:" colspan="4"
+                        attrs="{'invisible': [('tipo_anexo','!=','02')]}"/>
+                    <div>
+                        <field name="organizacion" attrs="{'invisible': [('tipo_anexo','!=','02')]}" widget="html" readonly="1"/>
+                    </div>
+                    <separator string="3. Misión, visión, valores, objetivos y ejes estratégicos, y políticas institucionales." 
+                        colspan="4" attrs="{'invisible': [('tipo_anexo','!=','02')]}"/>
+                    <div>
+                        <field name="mision_vision" attrs="{'invisible': [('tipo_anexo','!=','02')]}" widget="html" readonly="1"/>
+                    </div>
+                    <separator string="4. Información respecto al cumplimiento de cada una de las funciones principales:" colspan="4"
+                        attrs="{'invisible': [('tipo_anexo','!=','02')]}"/>
+                    <group attrs="{'invisible': [('tipo_anexo','!=','02')]}">
+                        <field name="estado_situacion" widget="html" readonly="1"/>
+                        <field name="estrategia_disenada" widget="html" readonly="1"/>
+                        <field name="objetivo_meta" widget="html" readonly="1"/>
+                        <field name="resultado_obtenido" widget="html" readonly="1"/>
+                        <field name="asuntos_urgentes" widget="html" readonly="1"/>
+                    </group>
+                    <separator string="5. Resumen de Información principal sobre:" colspan="4"
+                        attrs="{'invisible': [('tipo_anexo','!=','02')]}"/>
+                    <group attrs="{'invisible': [('tipo_anexo','!=','02')]}">
+                        <field name="presupuesto" widget="html" readonly="1"/>
+                        <field name="contabilidad" widget="html" readonly="1"/>
+                        <field name="recursos_humanos" widget="html" readonly="1"/>
+                        <field name="infraesctructura" widget="html" readonly="1"/>
+                        <field name="mejoras_servicio" widget="html" readonly="1"/>
+                    </group>
+                    <field name="item_ids" attrs="{'invisible': [('tipo_anexo','!=','03')]}" readonly="1">
+                        <form>
+                            <header>
+                                <button name="action_cumple" type="object" states="pendiente" string="Cumple"/>
+                                <button name="action_no_cumple" type="object" states="pendiente" string="No cumple"/>
+                                <button name="action_no_aplica" type="object" states="pendiente" string="No aplica"/>
+                                <field name="state" widget="statusbar" />
+                            </header>
+                            <sheet>
+                                <group>
+                                    <field name="item_id" options="{'no_open': True, 'no_create': True}"/>
+                                    <field name="binary_adjunto" widget="binary" filename="adjunto_filename" invisible="1"/>
+                                    <field name="adjunto_filename" invisible="1"/>
+                                </group>
+                                <separator string="Adjuntar documentos" colspan="4" mode="tree"/>
+                                <field name="adjunto_ids" mode="tree">
+                                    <tree string="Adjuntos" editable="bottom">
+                                        <field name="binary_adjunto" widget="binary" filename="adjunto_filename" />
+                                        <field name="adjunto_filename" invisible="1"/>
+                                    </tree>
+                                </field>
+                                <separator string="Observaciones" colspan="4" attrs="{'invisible': [('state','!=','observado')]}"/>
+                                <div>
+                                    <field name="observacion" attrs="{'invisible': [('state','!=','observado')]}"/>
+                                </div>
+                            </sheet>
+                        </form>
+                        <tree string="Items" readonly="1">
+                            <field name="item_id" />
+                            <field name="observacion" />
+                            <field name="state" />
+                        </tree>
+                    </field>
+                    <separator string="Observaciones" colspan="4" attrs="{'invisible': [('state','!=','no_cumple')]}"/>
+                    <div>
+                        <field name="observacion" attrs="{'invisible': [('state','!=','no_cumple')]}"/>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="aprobacion_action" model="ir.actions.act_window">
+        <field name="name">Aprobacion</field>
+        <field name="res_model">transferencia.cargo.anexo</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_group_by_institucion_id': True, 'search_default_pendiente': True}</field>
+        <field name="limit">25</field>
+        <field name="help">Todavia no se han registrado los anexos.</field>
+    </record>
+
+</odoo>

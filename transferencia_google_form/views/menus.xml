@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+
+
+    <!-- MENU TRANSFERENCIA-->
+    <menuitem id="main_transferencia"
+        name="Transferencia"
+        sequence="1"
+        web_icon="transferencia_cargo,static/description/icono_transferencia.png"
+        groups="group_transferencia,group_aprobacion"
+    />
+
+    <menuitem id="menu_transferencia_cargo_item"
+        parent="main_transferencia"
+        action="transferencia_form_action"
+        sequence="1"
+        groups="group_transferencia,group_aprobacion"
+    />
+
+</odoo>

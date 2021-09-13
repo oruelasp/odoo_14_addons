@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ################################################################################
+                                DEFINICION DE GRUPOS
+         ################################################################################ -->
+    <record id="module_transferencia" model="ir.module.category">
+		<field name="name">Transferencia de cargo</field>
+		<field name="description">Nivel de acceso al aplicativo de transferencia de cargo</field>
+		<field name="sequence">400</field>
+	</record>
+
+    <record id="group_transferencia" model="res.groups">
+        <field name="name">Usuario Transferencia Cargo</field>
+        <field name="category_id" ref="module_transferencia"/>
+    </record>
+    
+    <record id="group_aprobacion" model="res.groups">
+        <field name="name">Usuario aprobador</field>
+        <field name="category_id" ref="module_transferencia"/>
+    </record>
+</odoo>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+     <!-- ########## VIEWS - TRANSFERENCIA ##########-->
+
+    <record model='ir.ui.view' id='transferencia_form_tree'>
+        <field name='name'>transferencia.form.tree</field>
+        <field name='model'>transferencia.form</field>
+        <field name='arch' type='xml'>
+            <tree>
+                <field name="marca_temporal"/>
+                <field name="correo"/>
+                <field name="name"/>
+                <field name="codigo_mercado"/>
+                <field name="lot_number"/>
+                <field name="dni"/>
+                <field name="municipalidad"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model='ir.ui.view' id='transferencia_form_search'>
+        <field name='name'>transferencia.form.search</field>
+        <field name='model'>transferencia.form</field>
+        <field name='arch' type='xml'>
+            <search>
+                <field name="codigo_mercado"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="transferencia_form_action" model="ir.actions.act_window">
+        <field name="name">Transferencia de formulario</field>
+        <field name="res_model">transferencia.form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="limit">100</field>
+        <field name="help">Todavia no se han registrado.</field>
+    </record>
+</odoo>

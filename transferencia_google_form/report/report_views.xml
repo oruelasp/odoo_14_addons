@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record model='ir.ui.view' id='transferencia_word_report_tree'>
+        <field name='name'>transferencia.word.report.tree</field>
+        <field name='model'>transferencia.word.report</field>
+        <field name='arch' type='xml'>
+            <tree>
+                <field name="code"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+            </tree>
+        </field>
+    </record>
+	<record id="transferencia_word_report_view" model="ir.ui.view">
+		<field name="name">transferencia.word.report.form</field>
+		<field name="model">transferencia.word.report</field>
+		<field name="arch" type="xml">
+			<form>
+				<group>
+					<field name="code" />
+					<field name="date_start"/>
+					<field name="date_end"/>
+					<field name="skip"/>
+					<field name="lot_number"/>
+				</group>
+				<footer>
+					<button string="Reporte Word" class="btn-primary" name="action_report_word" type="object" />
+					<button string="Cancelar" class="btn-primary" special="cancel"/>
+				</footer>
+			</form>
+		</field>
+	</record>
+    <record id="transferencia_word_report_out_view" model="ir.ui.view">
+		<field name="name">transferencia.word.report.out.form</field>
+		<field name="model">transferencia.word.report.out</field>
+		<field name="arch" type="xml">
+			<form string="Exportar Reporte Word">
+				<group>
+					<field name="binary_word_report_filename" readonly="1"/>
+				</group>
+				<footer>
+					<button string="Cerrar" class="btn-primary" special="cancel"/>
+				</footer>
+			</form>
+		</field>
+	</record>
+    <record id="action_transferencia_word_report" model="ir.actions.act_window">
+        <field name="name">Reporte de Word de Anexos</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">transferencia.word.report</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="menu_transferencia_word_report"
+        sequence="5"
+        parent="transferencia_google_form.main_transferencia"
+        action="action_transferencia_word_report"
+		groups="group_transferencia,group_aprobacion"
+	/>
+
+</odoo>
