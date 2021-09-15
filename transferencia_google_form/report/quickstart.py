@@ -6,7 +6,7 @@ from googleapiclient.http import MediaIoBaseDownload
 
 tmp = gettempdir()
 
-CLIENT_SECRET_FILE = '/mnt/extra-addons/transferencia_google_form/report/client_secret_file_2.json'
+CLIENT_SECRET_FILE = '/mnt/extra-addons/transferencia_google_form/report/client_secret_file.json'
 API_NAME = 'drive'
 API_VERSION = 'v3'
 SCOPES = ['https://www.googleapis.com/auth/drive']
@@ -34,5 +34,6 @@ def download_files(file_ids, file_names, SKIP_TOKEN):
             except Exception as e:
                 _logger.error(u'Excepción al crear archivo temporal: {}'.format(e))
             f.close()
+
 
 # download_files(['1G0ApL0c5XVTjSLln0dy99D6ZsZ14Qeg3', '1nCW767VPiY722RNJ6W5XG_XT3LY2cPWW', '1UauGcVDArur8sOKCsm_RIYqaXgZII4hl'], ['image1.jpg', 'image2.jpg', 'image3.jpg'])
