@@ -6,7 +6,7 @@ from googleapiclient.http import MediaIoBaseDownload
 
 tmp = gettempdir()
 
-CLIENT_SECRET_FILE = '/mnt/extra-addons/transferencia_google_form/report/client_secret_filex.json'
+CLIENT_SECRET_FILE = '/mnt/extra-addons/transferencia_google_form/report/client_secret_file.json'
 API_NAME = 'drive'
 API_VERSION = 'v3'
 SCOPES = ['https://www.googleapis.com/auth/drive']
